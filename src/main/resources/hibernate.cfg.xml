@@ -9,5 +9,6 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">1989g13a</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
     </session-factory>
 </hibernate-configuration>
