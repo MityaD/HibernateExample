@@ -23,10 +23,17 @@ public class User {
         this.lastName = lastName;
         this.age = age;
     }
+    public User(int id, String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
 
     public int getId() {
         return id;
     }
+
+    public void setId(int id) {this.id = id;}
 
     public String getFirstName() {
         return firstName;

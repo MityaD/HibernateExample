@@ -27,11 +27,12 @@ public class UserDao {
         session.close();
     }
 
-    public void update(int id, User user) {
+    public void update(int id, String lastName, String firstName, int age) {
+        User newUser = new User(id, lastName, firstName, age);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(findById(id));
-        session.save(user);
+//        session.delete(findById(id));
+        session.save(newUser);
         tx1.commit();
         session.close();
     }
