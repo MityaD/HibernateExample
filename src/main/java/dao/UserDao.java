@@ -1,9 +1,12 @@
 package dao;
 
+import models.Address;
 import models.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactoryUtil;
+
+import javax.management.Query;
 import java.util.List;
 
 public class UserDao {
@@ -19,10 +22,18 @@ public class UserDao {
         session.close();
     }
 
-    public void addUser(User user) {
+    public void addUser(User user, Address address) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.save(user);
+        session.save(address);
+        tx1.commit();
+        session.close();
+    }
+    public void update(User user) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.update(user);
         tx1.commit();
         session.close();
     }
@@ -31,7 +42,6 @@ public class UserDao {
         User newUser = new User(id, lastName, firstName, age);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-//        session.delete(findById(id));
         session.save(newUser);
         tx1.commit();
         session.close();
@@ -60,8 +70,6 @@ public class UserDao {
         session.close();
     }
 
-
-
     public List<User> findAllUser() {
         List<User> users1 = (List<User>)  HibernateSessionFactoryUtil
                 .getSessionFactory()
@@ -70,4 +78,16 @@ public class UserDao {
                 .list();
         return users1;
     }
+
+//    public void all(String house) {
+//        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+//        String sqlCodeTasks = "SELECT a " +
+//                "FROM users a " +
+//                "WHERE a.house = ; ;
+//
+//        Query query = (Query) session.createQuery(sqlCodeTasks);
+//        List<User> queryResultList = query.getResultList();
+//
+//    }
+
 }
