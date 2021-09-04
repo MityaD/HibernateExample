@@ -18,15 +18,15 @@ public class Main {
         UserDao userDao = new UserDao();
 
         address1.setUser(user1);
-        userDao.addUser(user1, address1);
+        userDao.addUserAndAddress(user1, address1);
         address2.setUser(user2);
-        userDao.addUser(user2, address2);
+        userDao.addUserAndAddress(user2, address2);
         address3.setUser(user3);
-        userDao.addUser(user3, address3);
+        userDao.addUserAndAddress(user3, address3);
         address4.setUser(user4);
-        userDao.addUser(user4, address4);
+        userDao.addUserAndAddress(user4, address4);
 
-        //userDao.deleteUserId(3);
+        userDao.getUserByHouseNumber("400");
 
     }
 }

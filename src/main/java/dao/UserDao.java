@@ -4,25 +4,24 @@ import models.Address;
 import models.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import utils.HibernateSessionFactoryUtil;
-
-import javax.management.Query;
 import java.util.List;
 
 public class UserDao {
 
-    public User findById(int id) {
+    public User getUserById(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(User.class, id);
     }
-    public void deleteUserId(int id) {
+    public void deleteUserById(int id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(findById(id));
+        session.delete(getUserById(id));
         tx1.commit();
         session.close();
     }
 
-    public void addUser(User user, Address address) {
+    public void addUserAndAddress(User user, Address address) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.save(user);
@@ -38,7 +37,7 @@ public class UserDao {
         session.close();
     }
 
-    public void update(int id, String lastName, String firstName, int age) {
+    public void updateUsersById(int id, String lastName, String firstName, int age) {
         User newUser = new User(id, lastName, firstName, age);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
@@ -70,7 +69,7 @@ public class UserDao {
         session.close();
     }
 
-    public List<User> findAllUser() {
+    public List<User> getAllUser() {
         List<User> users1 = (List<User>)  HibernateSessionFactoryUtil
                 .getSessionFactory()
                 .openSession()
@@ -79,15 +78,12 @@ public class UserDao {
         return users1;
     }
 
-//    public void all(String house) {
-//        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-//        String sqlCodeTasks = "SELECT a " +
-//                "FROM users a " +
-//                "WHERE a.house = ; ;
-//
-//        Query query = (Query) session.createQuery(sqlCodeTasks);
-//        List<User> queryResultList = query.getResultList();
-//
-//    }
-
+    public List<User> getUserByHouseNumber(String house) {
+        Query query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery(
+                "SELECT u FROM User u, Address a " +
+                "WHERE a.house = '" + house + "'");
+        List<User> users1 = query
+                .list();
+        return users1;
+    }
 }
