@@ -8,8 +8,8 @@ import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
-@ToString
 @Entity
+@ToString
 @Table(name = "users")
 public class User {
 
@@ -45,4 +45,5 @@ public class User {
 
     public User() {
     }
+
 }

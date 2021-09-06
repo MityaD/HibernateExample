@@ -26,7 +26,10 @@ public class Main {
         address4.setUser(user4);
         userDao.addUserAndAddress(user4, address4);
 
-        userDao.getUserByHouseNumber("400");
+        //userDao.getUserById(2);
 
+        //userDao.deleteUserById(2);
+
+        userDao.getUserByHouseNumber("400");
     }
 }
