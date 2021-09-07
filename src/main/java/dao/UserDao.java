@@ -92,9 +92,8 @@ public class UserDao {
                 .openSession()
                 .createQuery("From User")
                 .list();
-        for (User user : users1) {
-            session.delete(user);
-        }
+
+        users1.forEach(session::delete);
         logger.info(dataTime() + "Все пользователи удалены!!!");
         tx1.commit();
         session.close();
@@ -106,14 +105,13 @@ public class UserDao {
                 .openSession()
                 .createQuery("From User")
                 .list();
-        for (User user : users1) {
-            logger.info("FirstName: " + user.getFirstName()
-                    + "; LastName: " + user.getLastName()
-                    + "; Age: " + user.getAge()
-                    + "; City: " + user.getAddress().getCity()
-                    + "; Street: " + user.getAddress().getStreet()
-                    + "; House: " + user.getAddress().getHouse() + "Получен пользователь!!!");
-        }
+
+        users1.forEach(user -> logger.info("FirstName: " + user.getFirstName()
+                + "; LastName: " + user.getLastName()
+                + "; Age: " + user.getAge()
+                + "; City: " + user.getAddress().getCity()
+                + "; Street: " + user.getAddress().getStreet()
+                + "; House: " + user.getAddress().getHouse() + "    Получен пользователь!!!"));
         return users1;
     }
 
@@ -122,15 +120,15 @@ public class UserDao {
                 .getSessionFactory()
                 .openSession()
                 .createQuery(
-                "SELECT u FROM User u WHERE u.address.house = '" + house + "'").list();
-        for (User user : users) {
-            logger.info("FirstName: " + user.getFirstName()
-                            + "; LastName: " + user.getLastName()
-                            + "; Age: " + user.getAge()
-                            + "; City: " + user.getAddress().getCity()
-                            + "; Street: " + user.getAddress().getStreet()
-                            + "; House: " + user.getAddress().getHouse() + "Получен пользователи из дома № " + house);
-        }
+                "SELECT u FROM User u WHERE u.address.house = '" + house + "'")
+                .list();
+
+        users.forEach(user -> logger.info("FirstName: " + user.getFirstName()
+                + "; LastName: " + user.getLastName()
+                + "; Age: " + user.getAge()
+                + "; City: " + user.getAddress().getCity()
+                + "; Street: " + user.getAddress().getStreet()
+                + "; House: " + user.getAddress().getHouse() + "      Получен пользователи из дома № " + house));
         return users;
     }
 
