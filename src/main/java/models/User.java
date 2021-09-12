@@ -2,14 +2,14 @@ package models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@ToString
 @Table(name = "users")
 public class User {
 
@@ -27,7 +27,47 @@ public class User {
     @Column (name = "age")
     private int age;
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)  //если адрес удалили то и с базы он удалиться
     private Address address;
 
     public User(String firstName, String lastName, int age) {
@@ -42,8 +82,4 @@ public class User {
         this.lastName = lastName;
         this.age = age;
     }
-
-    public User() {
-    }
-
 }
